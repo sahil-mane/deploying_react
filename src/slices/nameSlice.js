@@ -7,18 +7,12 @@ const nameSlice = createSlice({
   },
   reducers: {
     addName: (state, action) => {
-      console.log(current(state));
-      console.log(action);
       state.value.push(action.payload);
     },
     deleteName: (state, action) => {
-      console.log(current(state));
-      console.log(action);
       state.value = state.value.filter((d, i) => i !== action.payload);
     },
     updateName: (state, action) => {
-      console.log(current(state));
-      console.log(action);
       const { id, name } = action.payload;
       state.value[id] = name;
     },

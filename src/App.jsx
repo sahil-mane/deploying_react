@@ -8,7 +8,7 @@ function App() {
   const [editId, setEditId] = useState(null);
   const nameList = useSelector((state) => state.name.value);
   const dispatch = useDispatch();
-  console.log(nameList);
+  // console.log(editId+1);
 
   const handleAddName = () => {
     const value = name.trim();
@@ -32,8 +32,8 @@ function App() {
   const handleUpdate = () => {
     const updateValue = { id: editId, name: name };
     dispatch(updateName(updateValue));
-    setName('')
-    setEditId(null)
+    setName("");
+    setEditId(null);
   };
 
   const handleDelete = (id) => {
@@ -48,66 +48,73 @@ function App() {
 
   return (
     <>
-    <section style={{backgroundColor:"#FDFBD4"}}>
+      <section style={{ backgroundColor: "#ADD8E6" }}>
+        <section
+          className="layout"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+            paddingTop: "200px",
+          }}
+        >
+          <div>
+            <div className="search-input">
+              <input
+                type="text"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+                placeholder="Enter the Name"
+              />
+              {editId !== null ? (
+                <button onClick={handleUpdate}>Update</button>
+              ) : (
+                <button onClick={handleAddName}>add</button>
+              )}
+            </div>
+          </div>
 
-      <section
-        className="layout"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
-          paddingTop:"200px"
-        }}
-      >
-        <div>
-          <div className="search-input">
-            <input
-              type="text"
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-              placeholder="Enter the Name"
-            />
-            {editId ? (
-              <button onClick={handleUpdate}>Update</button>
+          <div style={{ marginTop: "10px" }}>
+            {nameList?.length > 0 ? (
+              nameList?.map((data, i) => {
+                return (
+                  <div
+                    key={`${i}-${data}`}
+                    className="name-tab"
+                    style={{ display: "flex" }}
+                  >
+                    <div className="name-section">
+                      <p>{data}</p>
+                    </div>
+                    <div className="btn">
+                      <button
+                        className="upt"
+                        disabled={editId !== null ? true : false}
+                        onClick={() => handleEdit(i)}
+                      >
+                        update
+                      </button>
+                      <button
+                        className="del"
+                        disabled={editId !== null ? true : false}
+                        onClick={() => handleDelete(i)}
+                      >
+                        delete
+                      </button>
+                    </div>
+                  </div>
+                );
+              })
             ) : (
-              <button onClick={handleAddName}>add</button>
+              <>
+                <div>
+                  <p>No Name available</p>
+                </div>
+              </>
             )}
           </div>
-        </div>
-
-        <div style={{ marginTop: "10px" }}>
-          {nameList?.length > 0 ? (
-            nameList?.map((data, i) => {
-              return (
-                <div
-                  key={`${i + 1}-${data}`}
-                  className="name-tab"
-                  style={{ display: "flex" }}
-                >
-                  <div className="name-section">
-                    <p>{data}</p>
-                  </div>
-                  <div className="btn">
-                    <button className="upt" onClick={() => handleEdit(i)}>
-                      update
-                    </button>
-                    <button className="del" onClick={() => handleDelete(i)}>
-                      delete
-                    </button>
-                  </div>
-                </div>
-              );
-            })
-          ) : (
-            <>
-              <div>
-                <p>No Name available</p>
-              </div>
-            </>
-          )}
-        </div>
+        </section>
       </section>
-    </section>
     </>
   );
 }

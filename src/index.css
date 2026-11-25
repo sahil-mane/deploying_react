@@ -5,7 +5,8 @@
 }
 
 .layout {
-  background-color: #FDFBD4;
+  background-color: #ADD8E6
+;
   max-width: 650px;
   margin: 0px auto;
   height: 100vh;
@@ -72,6 +73,11 @@
   border-radius: 6px;
   font-size: 16px;
 } 
+
+.btn button:disabled{
+  background-color: grey;
+  cursor: not-allowed;
+}
 
 .upt{
   background-color: green;
